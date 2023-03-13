@@ -26,14 +26,19 @@ class Student {
   std::string name;
   std::unordered_map<std::string, std::string> grades;
   std::vector<RegistedSchool> school_choices;
+  int evaluated_grade;
 
  public:
   Student(std::string refName,
           std::unordered_map<std::string, std::string> refGrades,
           std::vector<RegistedSchool> refChoices)
-      : name(refName), grades(refGrades), school_choices(refChoices) {}
+      : name(refName),
+        grades(refGrades),
+        school_choices(refChoices),
+        evaluated_grade(get_computed_evaluation()) {}
   std::string get_name();
-  std::unordered_map<std::string, std::string> get_grades();
-  std::vector<RegistedSchool> get_school_choices();
+  std::unordered_map<std::string, std::string> get_grades() const;
+  std::vector<RegistedSchool> get_school_choices() const;
   void display_profile();
+  int get_computed_evaluation();
 };
