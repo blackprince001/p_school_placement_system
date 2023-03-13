@@ -1,6 +1,8 @@
 #pragma once
 
+#include <iostream>
 #include <string>
+#include <unordered_map>
 #include <vector>
 
 namespace SchoolSystem {
@@ -18,20 +20,23 @@ class RegistedSchool {
 
   std::vector<std::string> get_registed_courses();
   int get_cut_off();
+  std::string get_name();
 };
 
 class Student {
  private:
   std::string name;
-  std::vector<int> grades;
-  std::vector<std::string> school_choices;
+  std::unordered_map<std::string, std::string> grades;
+  std::vector<RegistedSchool> school_choices;
 
  public:
-  Student(std::string refName, std::vector<int> refGrades,
-          std::vector<std::string> refChoices)
+  Student(std::string refName,
+          std::unordered_map<std::string, std::string> refGrades,
+          std::vector<RegistedSchool> refChoices)
       : name(refName), grades(refGrades), school_choices(refChoices) {}
   std::string get_name();
-  std::vector<int> get_grades();
-  std::vector<std::string> get_school_choices();
+  std::unordered_map<std::string, std::string> get_grades();
+  std::vector<RegistedSchool> get_school_choices();
+  void display_profile();
 };
 }  // namespace SchoolSystem
