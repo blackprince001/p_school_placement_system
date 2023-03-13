@@ -5,8 +5,6 @@
 #include <unordered_map>
 #include <vector>
 
-namespace SchoolSystem {
-
 class RegistedSchool {
  private:
   std::string name;
@@ -39,4 +37,3 @@ class Student {
   std::vector<RegistedSchool> get_school_choices();
   void display_profile();
 };
-}  // namespace SchoolSystem

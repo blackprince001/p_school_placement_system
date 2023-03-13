@@ -1,1 +1,0 @@
-add_library(placement_system placement_system.cpp)

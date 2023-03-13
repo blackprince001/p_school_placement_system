@@ -1,3 +1,8 @@
+#include "SchoolSystem/SchoolSystem.cpp"
 
+int main() { 
+  RegistedSchool knust("KNUST", {"Physics"}, 16);
+  Student kwame("kwame", {{"Physics", "A"}}, {knust});
 
-int main() { return 0; }
+  kwame.display_profile();
+  return 0; }
