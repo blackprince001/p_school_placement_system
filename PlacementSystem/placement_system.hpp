@@ -11,6 +11,7 @@ class PlacementSystem {
   std::vector<RegistedSchool> db_schools;
   std::vector<Student> db_students;
   std::vector<std::pair<Student, RegistedSchool>> placed_students;
+  std::vector<std::pair<Student, RegistedSchool>> rejected_students;
   // TODO add attributes for student analytics and review
 
  public:
@@ -23,7 +24,7 @@ class PlacementSystem {
   void add_student(Student &);
   std::vector<RegistedSchool> get_registed_schools();
   void place_students();
-  std::vector<std::pair<Student, RegistedSchool>> get_placed_students() {
-    return placed_students;
-  }
+  std::vector<std::pair<Student, RegistedSchool>> get_placed_students();
+  std::vector<std::pair<Student, RegistedSchool>> get_rejected_students();
+  void display_placement_results();
 };
