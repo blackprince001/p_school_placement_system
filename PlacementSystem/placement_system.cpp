@@ -26,7 +26,7 @@ std::vector<std::pair<Student, RegistedSchool>>
 PlacementSystem::get_placed_students() {
   if (db_students.size() > 1 && placed_students.size() <= 1)
     return placed_students;
-  return {};  // else return an empty vector
+  return {};
 }
 
 std::vector<std::pair<Student, RegistedSchool>>
@@ -54,7 +54,21 @@ void PlacementSystem::place_students() {
   }
 }
 
-void PlacementSystem::display_placement_results() {
-  // TODO display people who have been placed in schools and those who did not,
-  // separately!
+void PlacementSystem::display_placement_results(std::string schoolName) {
+  std::cout << "LIST OF STUDENTS WHO HAVE BEEN PLACED IN " << schoolName
+            << "\n";
+  for (auto &placed_student : placed_students) {
+    if (placed_student.second.get_name() == schoolName) {
+      std::cout << placed_student.first.get_name() << ":"
+                << placed_student.second.get_name() << "\n";
+    }
+  }
+  std::cout << "LIST OF STUDENTS WHO HAVE BEEN REJECTED BY " << schoolName
+            << "\n";
+  for (auto &rejected_student : rejected_students) {
+    if (rejected_student.second.get_name() == schoolName) {
+      std::cout << rejected_student.first.get_name() << ":"
+                << rejected_student.second.get_name() << "\n";
+    }
+  }
 }
