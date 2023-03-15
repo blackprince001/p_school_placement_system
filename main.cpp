@@ -1,8 +1,11 @@
+#include "PlacementSystem/placement_system.hpp"
 #include "SchoolSystem/SchoolSystem.cpp"
 
-int main() { 
-  RegistedSchool knust("KNUST", {"Physics"}, 16);
-  Student kwame("kwame", {{"Physics", "A"}}, {knust});
+int main() {
+  // TODO
+  // Make a global variable for registed courses for all candidates
+  // Make a template generated list of students preferrably in a text file to be
+  // read
 
-  kwame.display_profile();
-  return 0; }
+  return 0;
+}

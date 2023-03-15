@@ -1,0 +1,1 @@
+Autogenerate the student populis with python scripts
