@@ -26,5 +26,5 @@ class PlacementSystem {
   void place_students();
   std::vector<std::pair<Student, RegistedSchool>> get_placed_students();
   std::vector<std::pair<Student, RegistedSchool>> get_rejected_students();
-  void display_placement_results();
+  void display_placement_results(std::string schoolName);
 };
