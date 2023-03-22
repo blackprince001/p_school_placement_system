@@ -1,5 +1,11 @@
+#include <unordered_map>
+
 #include "PlacementSystem/placement_system.hpp"
-#include "SchoolSystem/SchoolSystem.cpp"
+#include "SchoolSystem/SchoolSystem.hpp"
+
+std::vector<Student> template_students;
+std::vector<RegistedSchool> template_schools;
+std::unordered_map<std::string, std::string> template_grades;
 
 int main() {
   // TODO
