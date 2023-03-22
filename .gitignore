@@ -11,3 +11,5 @@ CMakeCache.txt
 CMakeFiles
 
 .cache
+
+__pycache__
