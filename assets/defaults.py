@@ -1,3 +1,4 @@
+# Creating a list of students, grades and courses.
 student_names = [
   "Austin Lucas",
   "Leila Carter",
