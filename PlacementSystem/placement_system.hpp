@@ -16,8 +16,8 @@ class PlacementSystem {
 
    public:
     PlacementSystem() : db_schools({}), db_students({}){};
-    PlacementSystem(std::vector<RegistedSchool> &schoolList,
-                    std::vector<Student> &studentList)
+    PlacementSystem(std::vector<RegistedSchool> schoolList,
+                    std::vector<Student> studentList)
         : db_schools(schoolList), db_students(studentList){};
     std::vector<Student> get_students();
     void add_school(RegistedSchool &);
