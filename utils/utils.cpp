@@ -1,12 +1,13 @@
+#include <fstream>
 #include <iostream>
 #include <vector>
-#include <fstream>
 
+namespace util {
 /**
  * It reads a file and returns a vector of strings
- * 
+ *
  * @param path The path to the file to read from.
- * 
+ *
  * @return A vector of strings.
  */
 std::vector<std::string> read_records_from_database(std::string &path) {
@@ -26,10 +27,10 @@ std::vector<std::string> read_records_from_database(std::string &path) {
 
 /**
  * It splits a string by a character
- * 
+ *
  * @param text The text to split
  * @param ch The character to split by
- * 
+ *
  * @return A vector of strings
  */
 std::vector<std::string> split_by(std::string &text, char ch) {
@@ -46,3 +47,4 @@ std::vector<std::string> split_by(std::string &text, char ch) {
     if (buf.length() > 0) texts.push_back(buf);
     return texts;
 }
+}  // namespace util
