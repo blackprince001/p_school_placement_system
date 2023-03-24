@@ -6,19 +6,35 @@
 
 #include "../SchoolSystem/SchoolSystem.hpp"
 
+/* A Model definition for a placement system.
+ *
+ * attr: `db_schools` will represent the schools that are going to be assigned
+ * students.
+ *
+ * attr: `db_students` will represent the students thar are going to
+ * be assigned schools.
+ *
+ * attr: `placed_students` will represent who have been
+ * successfully assigned a school.
+ *
+ * attr: `rejected_students` will represent
+ * who have not been successfully assigned a school.
+ */
 class PlacementSystem {
    private:
-    std::vector<RegistedSchool> db_schools;
-    std::vector<Student> db_students;
-    std::vector<std::pair<Student, RegistedSchool>> placed_students;
-    std::vector<std::pair<Student, RegistedSchool>> rejected_students;
-    // TODO add attributes for student analytics and review
+    // Declaring the private variables of the class.
+    std::vector<RegistedSchool> _db_schools;
+    std::vector<Student> _db_students;
+    std::vector<std::pair<Student, RegistedSchool>> _placed_students;
+    std::vector<std::pair<Student, RegistedSchool>> _rejected_students;
 
    public:
-    PlacementSystem() : db_schools({}), db_students({}){};
+    PlacementSystem() : _db_schools({}), _db_students({}){};
     PlacementSystem(std::vector<RegistedSchool> schoolList,
                     std::vector<Student> studentList)
-        : db_schools(schoolList), db_students(studentList){};
+        : _db_schools(schoolList), _db_students(studentList){};
+
+    // Declaring public member functions
     std::vector<Student> get_students();
     void add_school(RegistedSchool &);
     void add_student(Student &);
