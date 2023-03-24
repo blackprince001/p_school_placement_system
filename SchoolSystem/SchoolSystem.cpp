@@ -1,19 +1,26 @@
 #include "./SchoolSystem.hpp"
 
 /**
+ * This function returns the cut off grade of the programme.
+ *
+ * @return The programme cut off grade.
+ */
+int Programme::get_programme_cut_off() { return _programme_cut_off_grade; }
+
+/**
  * *|MARCADOR_CURSOR|*
  *
- * @return The cut_off value of the RegistedSchool object.
+ * @return The name of the programme.
  */
-int RegistedSchool::get_cut_off() { return cut_off; }
+std::string Programme::get_programme_name() { return _programme_name; }
 
 /**
  * It returns the courses vector.
  *
  * @return A vector of strings.
  */
-std::vector<std::string> RegistedSchool::get_registed_courses() {
-    return courses;
+std::vector<Programme> RegistedSchool::get_offered_programmes() {
+    return _offered_programmes;
 }
 
 /**
@@ -21,14 +28,14 @@ std::vector<std::string> RegistedSchool::get_registed_courses() {
  *
  * @return The name of the school.
  */
-std::string RegistedSchool::get_name() { return name; }
+std::string RegistedSchool::get_name() { return _name; }
 
 /**
  * It returns the name of the student.
  *
  * @return The name of the student.
  */
-std::string Student::get_name() { return name; }
+std::string Student::get_name() { return _name; }
 
 /**
  * This function returns a copy of the grades map.
@@ -36,7 +43,7 @@ std::string Student::get_name() { return name; }
  * @return A copy of the grades map.
  */
 std::unordered_map<std::string, std::string> Student::get_grades() const {
-    return grades;
+    return _grades;
 }
 
 /**
@@ -45,7 +52,7 @@ std::unordered_map<std::string, std::string> Student::get_grades() const {
  * @return A vector of RegistedSchool objects.
  */
 std::vector<RegistedSchool> Student::get_school_choices() const {
-    return school_choices;
+    return _school_choices;
 }
 
 /**
@@ -54,21 +61,21 @@ std::vector<RegistedSchool> Student::get_school_choices() const {
  * @return The evaluated grade of the student.
  */
 int Student::set_computed_evaluation() {
-    for (auto [_, grade] : grades) {
+    for (auto [_, grade] : _grades) {
         if (grade == "A")
-            evaluated_grade += 1;
+            _evaluated_grade += 1;
         else if (grade == "B")
-            evaluated_grade += 2;
+            _evaluated_grade += 2;
         else if (grade == "C")
-            evaluated_grade += 3;
+            _evaluated_grade += 3;
         else if (grade == "D")
-            evaluated_grade += 4;
+            _evaluated_grade += 4;
         else if (grade == "E")
-            evaluated_grade += 5;
+            _evaluated_grade += 5;
         else if (grade == "F")
-            evaluated_grade += 6;
+            _evaluated_grade += 6;
     }
-    return evaluated_grade;
+    return _evaluated_grade;
 }
 
 /**
@@ -87,8 +94,8 @@ void Student::display_profile() {
         std::cout << grade.first << "-" << grade.second << "\n";
     }
 
-    evaluated_grade = set_computed_evaluation();
-    std::cout << "Overall Grade: " << evaluated_grade << "\n";
+    _evaluated_grade = set_computed_evaluation();
+    std::cout << "Overall Grade: " << _evaluated_grade << "\n";
 
     std::cout << "Schools picked\n";
     for (auto &school : schools_chosen) {
