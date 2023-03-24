@@ -7,7 +7,7 @@
  */
 void PlacementSystem::add_school(RegistedSchool &registedSchool) {
     try {
-        db_schools.push_back(registedSchool);
+        _db_schools.push_back(registedSchool);
     } catch (...) {
         std::cout
             << "Registed School might not exist or has missing information!\n";
@@ -21,7 +21,7 @@ void PlacementSystem::add_school(RegistedSchool &registedSchool) {
  */
 void PlacementSystem::add_student(Student &registedStudent) {
     try {
-        db_students.push_back(registedStudent);
+        _db_students.push_back(registedStudent);
     } catch (...) {
         std::cout
             << "Registed student might not exist or has missing information!\n";
@@ -34,7 +34,7 @@ void PlacementSystem::add_student(Student &registedStudent) {
  * @return A vector of RegistedSchool objects.
  */
 std::vector<RegistedSchool> PlacementSystem::get_registed_schools() {
-    return db_schools;
+    return _db_schools;
 }
 
 /**
@@ -44,8 +44,8 @@ std::vector<RegistedSchool> PlacementSystem::get_registed_schools() {
  */
 std::vector<std::pair<Student, RegistedSchool>>
 PlacementSystem::get_placed_students() {
-    if (db_students.size() > 1 && placed_students.size() <= 1)
-        return placed_students;
+    if (_db_students.size() > 1 && _placed_students.size() <= 1)
+        return _placed_students;
     return {};
 }
 
@@ -56,8 +56,8 @@ PlacementSystem::get_placed_students() {
  */
 std::vector<std::pair<Student, RegistedSchool>>
 PlacementSystem::get_rejected_students() {
-    if (db_students.size() > 1 && rejected_students.size() <= 1)
-        return rejected_students;
+    if (_db_students.size() > 1 && _rejected_students.size() <= 1)
+        return _rejected_students;
     return {};
 }
 
@@ -66,7 +66,7 @@ PlacementSystem::get_rejected_students() {
  *
  * @return A vector of Student objects.
  */
-std::vector<Student> PlacementSystem::get_students() { return db_students; }
+std::vector<Student> PlacementSystem::get_students() { return _db_students; }
 
 /**
  * > The function iterates through the list of students and checks if the
@@ -74,18 +74,19 @@ std::vector<Student> PlacementSystem::get_students() { return db_students; }
  * If it is, the student is placed in the school, else the student is rejected
  */
 void PlacementSystem::place_students() {
-    for (auto &student : db_students) {
+    // Rewrite the placement algo to fit selection by programmes not only
+    // schools.
+    for (auto &student : _db_students) {
         auto student_school_choices = student.get_school_choices();
-        bool placed = false;
 
         for (auto &student_chosen_registedSchool : student_school_choices) {
             if (student.set_computed_evaluation() <=
                 student_chosen_registedSchool.get_cut_off()) {
-                placed_students.emplace_back(student,
-                                             student_chosen_registedSchool);
+                _placed_students.emplace_back(student,
+                                              student_chosen_registedSchool);
             } else {
-                rejected_students.emplace_back(student,
-                                               student_chosen_registedSchool);
+                _rejected_students.emplace_back(student,
+                                                student_chosen_registedSchool);
             }
         }
     }
@@ -98,11 +99,10 @@ void PlacementSystem::place_students() {
  * @param schoolName The name of the school whose placement results are to be
  * displayed.
  */
-
 void PlacementSystem::display_placement_results(std::string schoolName) {
     std::cout << "LIST OF STUDENTS WHO HAVE BEEN PLACED IN " << schoolName
               << "\n";
-    for (auto &placed_student : placed_students) {
+    for (auto &placed_student : _placed_students) {
         if (placed_student.second.get_name() == schoolName) {
             std::cout << placed_student.first.get_name() << ":"
                       << placed_student.second.get_name() << "\n";
@@ -110,7 +110,7 @@ void PlacementSystem::display_placement_results(std::string schoolName) {
     }
     std::cout << "LIST OF STUDENTS WHO HAVE BEEN REJECTED BY " << schoolName
               << "\n";
-    for (auto &rejected_student : rejected_students) {
+    for (auto &rejected_student : _rejected_students) {
         if (rejected_student.second.get_name() == schoolName) {
             std::cout << rejected_student.first.get_name() << ":"
                       << rejected_student.second.get_name() << "\n";
