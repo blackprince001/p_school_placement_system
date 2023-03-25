@@ -8,7 +8,7 @@
 int Programme::get_programme_cut_off() { return _programme_cut_off_grade; }
 
 /**
- * *|MARCADOR_CURSOR|*
+ * This function returns the name a programme object.
  *
  * @return The name of the programme.
  */
@@ -53,6 +53,15 @@ std::unordered_map<std::string, std::string> Student::get_grades() const {
  */
 std::vector<RegistedSchool> Student::get_school_choices() const {
     return _school_choices;
+}
+
+/**
+ * It returns the vector of programmes that the student has selected.
+ *
+ * @return A vector of programmes.
+ */
+std::vector<std::string> Student::get_selected_programmes() const {
+    return _selected_programmes;
 }
 
 /**
