@@ -21,6 +21,8 @@ class Programme {
     int _programme_cut_off_grade;
 
    public:
+    Programme(std::string name, int cut_off)
+        : _programme_name(name), _programme_cut_off_grade(cut_off){};
     int get_programme_cut_off();
     std::string get_programme_name();
 };
@@ -40,8 +42,8 @@ class RegistedSchool {
 
    public:
     RegistedSchool(std::string schoolName,
-                   std::vector<Programme> registedCourses)
-        : _name(schoolName), _offered_programmes(registedCourses) {}
+                   std::vector<Programme> registedProgrammes)
+        : _name(schoolName), _offered_programmes(registedProgrammes) {}
 
     // Declaring the public member functions
     std::vector<Programme> get_offered_programmes();
@@ -65,18 +67,24 @@ class Student {
     std::string _name;
     std::unordered_map<std::string, std::string> _grades;
     std::vector<RegistedSchool> _school_choices;
+    std::vector<std::string> _selected_programmes;
     int _evaluated_grade = 0;
 
    public:
     Student(std::string refName,
             std::unordered_map<std::string, std::string> refGrades,
-            std::vector<RegistedSchool> refChoices)
-        : _name(refName), _grades(refGrades), _school_choices(refChoices) {}
+            std::vector<RegistedSchool> refChoices,
+            std::vector<std::string> refprogrammes)
+        : _name(refName),
+          _grades(refGrades),
+          _school_choices(refChoices),
+          _selected_programmes(refprogrammes) {}
 
     // Declaring the public member functions
     std::string get_name();
     std::unordered_map<std::string, std::string> get_grades() const;
     std::vector<RegistedSchool> get_school_choices() const;
+    std::vector<std::string> get_selected_programmes() const;
     void display_profile();
     int set_computed_evaluation();
 };
