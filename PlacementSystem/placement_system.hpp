@@ -25,8 +25,10 @@ class PlacementSystem {
     // Declaring the private variables of the class.
     std::vector<RegistedSchool> _db_schools;
     std::vector<Student> _db_students;
-    std::vector<std::pair<Student, RegistedSchool>> _placed_students;
-    std::vector<std::pair<Student, RegistedSchool>> _rejected_students;
+    std::vector<std::tuple<Student, RegistedSchool, Programme>>
+        _placed_students;
+    std::vector<std::tuple<Student, RegistedSchool, Programme>>
+        _rejected_students;
 
    public:
     PlacementSystem() : _db_schools({}), _db_students({}){};
@@ -40,7 +42,9 @@ class PlacementSystem {
     void add_student(Student &);
     std::vector<RegistedSchool> get_registed_schools();
     void place_students();
-    std::vector<std::pair<Student, RegistedSchool>> get_placed_students();
-    std::vector<std::pair<Student, RegistedSchool>> get_rejected_students();
+    std::vector<std::tuple<Student, RegistedSchool, Programme>>
+    get_placed_students();
+    std::vector<std::tuple<Student, RegistedSchool, Programme>>
+    get_rejected_students();
     void display_placement_results(std::string schoolName);
 };
