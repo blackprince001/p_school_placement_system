@@ -110,4 +110,8 @@ void Student::display_profile() {
     for (auto &school : schools_chosen) {
         std::cout << school.get_name() << "\n";
     }
+
+    std::cout << "Programmes selected\n";
+    for (auto sprg : get_selected_programmes()) std::cout << sprg << "\n";
+    std::cout << "\n\n";
 }
