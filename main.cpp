@@ -52,6 +52,7 @@ void preload_registedschools() {
 void preload_student_data() {
     std::string fp = "../students.txt";
     auto student_records = util::read_records_from_database(fp);
+    std::cout << "\nReading from " << fp << "\n";
 
     for (auto record : student_records) {
         std::unordered_map<std::string, std::string> student_grades;
@@ -77,12 +78,20 @@ void preload_student_data() {
     }
 }
 
-int main() {
+void demonstration_1() {
+    // call preload function to alter the global variables related to Registed
+    // Schools
     preload_registedschools();
 
+    // call preload function to load data from `students.txt` and parse them
+    // into the globals
     preload_student_data();
 
+    std::cout << "\nDisplaying the student data of the first 3 people from "
+                 "../students.txt\n\n";
     for (int n = 0; n < 3; ++n) template_students[n].display_profile();
+
+    std::cout << "\n\n";
 
     // Create a PlacementSystem object called WAEC
     PlacementSystem WAEC(template_schools, template_students);
@@ -92,6 +101,81 @@ int main() {
     // name Default University can be inferenced from the global variables at
     // the top of this source. {KNUST, UG-Legon, UENR}.
     WAEC.display_placement_results("KNUST");
+}
+
+void demonstration_2() {
+    // Demonstration of how each Model class works with its member functions
+    // And how they all relate to each other when building a system around them.
+    std::cout << "\nCreated a Programme Object:\n";
+    Programme SocialScience("Political Science", 14);
+    std::cout << "Programme Name" << SocialScience.get_programme_name() << "\n";
+    std::cout << "Programme cut_off: " << SocialScience.get_programme_cut_off()
+              << "\n\n";
+
+    // Creating a school object called KNUST and adding a programme to it.
+    std::cout << "Created a RegistedSchool Object:\n";
+    RegistedSchool KNUST("Kwame Nkrumah University of Science and Technology",
+                         {SocialScience});
+    std::cout << KNUST.get_name() << '\n';
+    std::cout << "Programmes the University offers\n";
+    for (auto prg : KNUST.get_offered_programmes()) {
+        std::cout << "Programme Name: " << prg.get_programme_name() << "\n";
+        std::cout << "Programme cut_off: " << prg.get_programme_cut_off()
+                  << "\n";
+    }
+    std::cout << "\n\n";
+
+    // Creating the student object and calling its member functions.
+    std::cout << "Created a Student Object:\n";
+    Student nwStd("Prince Kwabena Appiah", {{"Mathematics", "A"}}, {KNUST},
+                  {"Political Science"});
+    nwStd.display_profile();
+
+    /* Creating a placement system object called Waec, adding a school
+    and a student to it, placing the student, displaying the placement results,
+    getting the placed students, getting the rejected students, getting the
+    registered schools and getting the students. */
+    std::cout << "Created a PlacementSystem Object:\n";
+
+    PlacementSystem Waec({KNUST}, {nwStd});
+    Waec.place_students();
+    Waec.display_placement_results(
+        "Kwame Nkrumah University of Science and Technology");
+
+    std::cout << "\n\n";
+
+    // Creating a school object called Legon and a student object called
+    // tempStd and adding the student object as a student to the Waec
+    // PlacementSystem.
+    RegistedSchool Legon("University of Ghana, Legon", {SocialScience});
+    Student tempStd("Theresa", {{"Mathematics", "A"}}, {Legon},
+                    {"Political Science"});
+
+    Waec.add_school(Legon);
+    Waec.add_student(tempStd);
+
+    Waec.place_students();
+    Waec.display_placement_results("University of Ghana, Legon");
+}
+
+int main() {
+    std::cout
+        << "Placement System project by Group 30.\n\nPress 1 or 2 to run "
+           "demonstration_1 or demonstration_2 "
+           "respectively.\n\ndemonstration_1 "
+           "parses information about students from `students.txt` and "
+           "incorporates the data into "
+           "the Placement System Models defined in the "
+           "project.\nCheck `preload_registedschools()` and "
+           "`preload_student_data()` in main.cpp to understand what goes under "
+           "the hood.\n\ndemonstration_2 creats objects in the function "
+           "scope and exercises how one would use the member functions of "
+           "each class.\n\n Choose which one you wish to run: ";
+    int response;
+    std::cin >> response;
+
+    if (response == 1) demonstration_1();
+    if (response == 2) demonstration_2();
 
     return 0;
 }
