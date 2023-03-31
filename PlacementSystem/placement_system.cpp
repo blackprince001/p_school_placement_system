@@ -126,7 +126,7 @@ void PlacementSystem::place_students() {
  * displayed.
  */
 void PlacementSystem::display_placement_results(std::string schoolName) {
-    std::cout << "LIST OF STUDENTS WHO HAVE BEEN PLACED IN " << schoolName
+    std::cout << "\nLIST OF STUDENTS WHO HAVE BEEN PLACED IN " << schoolName
               << "\n";
     for (auto &placed_student : _placed_students) {
         auto student_name = std::get<0>(placed_student).get_name();
@@ -138,7 +138,7 @@ void PlacementSystem::display_placement_results(std::string schoolName) {
                       << student_programme << "\n";
         }
     }
-    std::cout << "LIST OF STUDENTS WHO HAVE BEEN REJECTED BY " << schoolName
+    std::cout << "\nLIST OF STUDENTS WHO HAVE BEEN REJECTED BY " << schoolName
               << "\n";
     for (auto &rejected_student : _rejected_students) {
         auto student_name = std::get<0>(rejected_student).get_name();
