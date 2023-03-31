@@ -100,7 +100,7 @@ void Student::display_profile() {
 
     std::cout << "Grades: \n";
     for (auto &grade : grades) {
-        std::cout << grade.first << "-" << grade.second << "\n";
+        std::cout << "\t" << grade.first << "-" << grade.second << "\n";
     }
 
     _evaluated_grade = set_computed_evaluation();
@@ -108,10 +108,11 @@ void Student::display_profile() {
 
     std::cout << "Schools picked\n";
     for (auto &school : schools_chosen) {
-        std::cout << school.get_name() << "\n";
+        std::cout << "\t" << school.get_name() << "\n";
     }
 
     std::cout << "Programmes selected\n";
-    for (auto sprg : get_selected_programmes()) std::cout << sprg << "\n";
+    for (auto sprg : get_selected_programmes())
+        std::cout << "\t" << sprg << "\n";
     std::cout << "\n\n";
 }
