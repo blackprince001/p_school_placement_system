@@ -4,6 +4,7 @@
 #include "SchoolSystem/SchoolSystem.hpp"
 #include "utils/utils.cpp"
 
+namespace Globals {
 /* Declaring two global vectors of type `Student` and `RegistedSchool`
  * respectively. */
 std::vector<Student> template_students;
@@ -38,13 +39,6 @@ RegistedSchool Legon("UG-Legon", set_default_school_programmes());
 RegistedSchool Uenr("UENR", set_default_school_programmes());
 
 /**
- * It takes a list of schools and pushes them into a vector
- */
-void preload_registedschools() {
-    for (auto item : {KNUST, Legon, Uenr}) template_schools.push_back(item);
-}
-
-/**
  * It reads the student database,
  * creates a student object for each student, and adds the student to the global
  * vector of students
@@ -72,29 +66,40 @@ void preload_student_data() {
         }
         // create student objects and add them to a collection of present
         // students.
-        Student nwStudent(student_name, student_grades, template_schools,
+        Student nwStudent(student_name, student_grades,
+                          Globals::template_schools,
                           {"Computer Engineering", "Computer Science"});
-        template_students.push_back(nwStudent);
+        Globals::template_students.push_back(nwStudent);
     }
 }
+
+/**
+ * It takes a list of schools and pushes them into a vector
+ */
+void preload_registedschools() {
+    for (auto item : {Globals::KNUST, Globals::Legon, Globals::Uenr})
+        Globals::template_schools.push_back(item);
+}
+
+}  // namespace Globals
 
 void demonstration_1() {
     // call preload function to alter the global variables related to Registed
     // Schools
-    preload_registedschools();
+    Globals::preload_registedschools();
 
     // call preload function to load data from `students.txt` and parse them
     // into the globals
-    preload_student_data();
+    Globals::preload_student_data();
 
     std::cout << "\nDisplaying the student data of the first 3 people from "
                  "../students.txt\n\n";
-    for (int n = 0; n < 3; ++n) template_students[n].display_profile();
+    for (int n = 0; n < 3; ++n) Globals::template_students[n].display_profile();
 
     std::cout << "\n\n";
 
     // Create a PlacementSystem object called WAEC
-    PlacementSystem WAEC(template_schools, template_students);
+    PlacementSystem WAEC(Globals::template_schools, Globals::template_students);
     // Place students using system member functions
     WAEC.place_students();
     // Display the student who have been placed in a particular University by
@@ -108,7 +113,8 @@ void demonstration_2() {
     // And how they all relate to each other when building a system around them.
     std::cout << "\nCreated a Programme Object:\n";
     Programme SocialScience("Political Science", 14);
-    std::cout << "Programme Name" << SocialScience.get_programme_name() << "\n";
+    std::cout << "Programme Name: " << SocialScience.get_programme_name()
+              << "\n";
     std::cout << "Programme cut_off: " << SocialScience.get_programme_cut_off()
               << "\n\n";
 
@@ -138,6 +144,14 @@ void demonstration_2() {
     std::cout << "Created a PlacementSystem Object:\n";
 
     PlacementSystem Waec({KNUST}, {nwStd});
+    for (auto student : Waec.get_students())
+        std::cout << "Student '" << student.get_name()
+                  << "' is in the System.\n";
+
+    for (auto school : Waec.get_registed_schools())
+        std::cout << "Registed School '" << school.get_name()
+                  << "' is in the System.\n";
+
     Waec.place_students();
     Waec.display_placement_results(
         "Kwame Nkrumah University of Science and Technology");
@@ -147,10 +161,14 @@ void demonstration_2() {
     // Creating a school object called Legon and a student object called
     // tempStd and adding the student object as a student to the Waec
     // PlacementSystem.
+    std::cout << "Creating new RegistedSchool Object.\n";
     RegistedSchool Legon("University of Ghana, Legon", {SocialScience});
+
+    std::cout << "Creating another Student object.\n";
     Student tempStd("Theresa", {{"Mathematics", "A"}}, {Legon},
                     {"Political Science"});
 
+    std::cout << "Adding Student object to new RegistedSchool Object.\n\n";
     Waec.add_school(Legon);
     Waec.add_student(tempStd);
 
@@ -174,8 +192,12 @@ int main() {
     int response;
     std::cin >> response;
 
-    if (response == 1) demonstration_1();
-    if (response == 2) demonstration_2();
+    if (response == 1)
+        demonstration_1();
+    else if (response == 2)
+        demonstration_2();
+    else
+        std::cout << "Please enter a valid response next time!";
 
     return 0;
 }
